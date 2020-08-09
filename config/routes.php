@@ -14,5 +14,5 @@ return function (App $app) {
         return $response;
     });
 
-    $app->get('/users', \App\Action\UsersAction::class);
+    $app->get('/country', \App\Action\CountryAction::class);
 };

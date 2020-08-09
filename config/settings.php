@@ -1,6 +1,9 @@
 <?php
 
 // Error reporting for production
+
+use Monolog\Logger;
+
 error_reporting(0);
 ini_set('display_errors', '0');
 
@@ -11,23 +14,47 @@ date_default_timezone_set('America/Sao_Paulo');
 $settings = [];
 
 // Path settings
-$settings['root']  = dirname(__DIR__);
+$settings['root']   = dirname(__DIR__);
 $settings['temp']   = $settings['root'] . '/tmp';
 $settings['public'] = $settings['root'] . '/public';
 
 // Error Handling Middleware settings
 $settings['error'] = [
-
-    // Should be set to false in production
     'display_error_details' => true,
-
-    // Parameter is passed to the default ErrorHandler
-    // View in rendered output by enabling the "displayErrorDetails" setting.
-    // For the console and unit tests we also disable it
     'log_errors' => true,
-
-    // Display error details in error log
     'log_error_details' => true,
 ];
+
+$settings['logger'] = [
+    'name' => 'slim-app',
+    'path' => isset($_ENV['docker']) ? 'php://stdout' : 'var/logs/app.log',
+    'level' => Logger::DEBUG,
+];
+
+$settings['doctrine'] =  [
+
+    // TODO Disable in production
+    'dev_mode' => true,
+
+    // TODO Enable in production
+    'cache_dir' => null,
+    // 'cache_dir' => __DIR__ . '/../var/cache/doctrine',
+
+    // TODO Enable in production
+    'proxy_dir' => null,
+    // 'proxy_dir' => __DIR__ . '/../var/proxies',
+    'metadata_dirs' => [__DIR__ . '/../src/Domain/'],
+
+    'connection' => [
+        'driver' => 'pdo_mysql',
+        'host' => 'localhost',
+        'port' => 3306,
+        'dbname' => 'world',
+        'user' => 'root',
+        'password' => '123456',
+        'charset' => 'utf-8'
+    ]
+];
+
 
 return $settings;

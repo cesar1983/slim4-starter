@@ -5,19 +5,21 @@ namespace App\Action;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-final class UsersAction
+final class CountryAction
 {
+
     public function __invoke(
         ServerRequestInterface $request,
-        ResponseInterface $response
+        ResponseInterface $response,
+        array $args = []
     ): ResponseInterface {
 
-        $users = [
-            ['id' => 1, 'name' => 'César'],
-            ['id' => 2, 'name' => 'Juca'],
+        $countries = [
+            ['id' => 1, 'name' => 'Brazil'],
+            ['id' => 2, 'name' => 'EUA'],
         ];
 
-        $response->getBody()->write(json_encode($users));
+        $response->getBody()->write(json_encode($countries));
 
         return $response
             ->withHeader('Content-Type', 'application/json')
