@@ -1,3 +1,3 @@
--- Slim Framework 4
+# Slim Framework 4
 
-# PHP Slim Framework V4 Starter
+- PHP Slim Framework V4 Starter
