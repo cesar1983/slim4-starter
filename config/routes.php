@@ -13,6 +13,4 @@ return function (App $app) {
         $response->getBody()->write('Hello, World!');
         return $response;
     });
-
-    $app->get('/country', \App\Action\CountryAction::class);
 };
